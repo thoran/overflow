@@ -1,10 +1,11 @@
 #!/usr/bin/env ruby
+# overflow.rb
 
-# 20190307
-# 0.0.0
+# 20190315
+# 0.0.1
 
-# Description: 
-# I did this in less than an hour. It has no tests. Can do more...
+# Changes:
+# 1. Labelled the output.
 
 def volume_of_liquid
   ARGV[0] || 2000
@@ -24,28 +25,36 @@ def number_of_glasses_j_in_row_i(row_i)
   row_i + 1
 end
 
-def volume_in_row(row_i)
+def volume_in_row_i(row_i)
   volume_of_glass_j * number_of_glasses_j_in_row_i(row_i)
 end
 
-def volume_of_liquid_consumed_by_row_i(volume, row_i)
-  volume_in_row(row_i) - volume
-end
-
+# Integer arithmetic only being performed here.
 def volume_per_glass_j_in_row_i(volume, row_i)
-  volume/number_of_glasses_j_in_row_i(row_i)
+  if volume > volume_in_row_i(row_i)
+    volume_of_glass_j
+  else
+    volume/number_of_glasses_j_in_row_i(row_i)
+  end
 end
 
 def main
   row_i = 0
-  volume_remaining = volume_of_liquid
-  until volume_remaining <= 0 || row_i >= number_of_rows
-    p row_i
-    p volume_remaining = volume_remaining - volume_in_row(row_i)
+  total_volume_consumed = 0
+  total_volume_remaining = volume_of_liquid
+  until total_volume_remaining <= 0 || row_i >= number_of_rows
+    last_remaining_volume = total_volume_remaining
+    if total_volume_remaining > volume_in_row_i(row_i)
+      total_volume_consumed += volume_in_row_i(row_i)
+      total_volume_remaining = total_volume_remaining - volume_in_row_i(row_i)
+    else
+      total_volume_consumed += total_volume_remaining
+      total_volume_remaining = 0
+    end
+    puts "#{row_i}: #{total_volume_consumed}/#{volume_of_liquid}"
     row_i += 1
   end
-  p volume_of_liquid_consumed_by_row_i(volume_remaining, row_i - 1)
-  p volume_per_glass_j_in_row_i(volume_remaining, row_i - 1)
+  puts "Volume per glass in the last row: #{volume_per_glass_j_in_row_i(last_remaining_volume, row_i - 1)}"
 end
 
 main
