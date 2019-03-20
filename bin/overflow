@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+# overflow
+
+# 20190320
+# 0.1.0
+
+require_relative '../lib/overflow.rb'
+
+def volume_of_liquid
+  ARGV[0] || 2000
+end
+
+def number_of_rows
+  ARGV[1] || 4
+end
+
+def volume_of_glass_j
+  ARGV[2] || 250
+end
+
+def main
+  Overflow.calculate_all(volume_of_liquid, number_of_rows, volume_of_glass_j)
+end
+
+main
