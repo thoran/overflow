@@ -23,5 +23,5 @@ $ ruby bin/overflow
 ## Running The Tests
 
 ```
-$ ruby test/overflow.rb
+$ ruby test/overflow_test.rb
 ```
