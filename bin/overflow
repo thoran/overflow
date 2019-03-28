@@ -7,15 +7,15 @@
 require_relative '../lib/overflow.rb'
 
 def volume_of_liquid
-  ARGV[0] || 2000
+  (ARGV[0] || 2000).to_i
 end
 
 def number_of_rows
-  ARGV[1] || 4
+  (ARGV[1] || 4).to_i
 end
 
 def volume_of_glass_j
-  ARGV[2] || 250
+  (ARGV[2] || 250).to_i
 end
 
 def main
